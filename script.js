@@ -76,7 +76,7 @@
   }
 
   function spawnHeart() {
-    const size = 16 + Math.random() * 24;
+    const size = 14 + Math.random() * 20;
     const heart = createHeartSVG(size);
 
     // Clamp spawn away from extreme edges to avoid clipping
@@ -87,7 +87,7 @@
     heart.style.left = left + 'vw';
     heart.style.top = top + 'vh';
 
-    const duration = 8 + Math.random() * 7;
+    const duration = 10 + Math.random() * 8;
     heart.style.animation = `rainDown ${duration}s linear forwards`;
     heart.style.animationDelay = (Math.random() * 1.2) + 's';
     heartsBg.appendChild(heart);
@@ -98,8 +98,11 @@
   function startHearts() {
     if (currentPage === 3) return; // disable on page 4
     if (heartInterval) return;
-    for (let i = 0; i < 46; i++) spawnHeart();
-    heartInterval = setInterval(spawnHeart, 300);
+    const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    const initial = isLowEnd ? 18 : 32;
+    const intervalMs = isLowEnd ? 520 : 380;
+    for (let i = 0; i < initial; i++) spawnHeart();
+    heartInterval = setInterval(spawnHeart, intervalMs);
   }
   function stopHearts() {
     clearInterval(heartInterval);
@@ -250,5 +253,11 @@
     daisiesBg.appendChild(span);
     setTimeout(() => span.remove(), (dur + 1) * 1000);
   }
-  let daisyTimer; function startDaisies() { for (let i = 0; i < 22; i++) createDaisy(); daisyTimer = setInterval(createDaisy, 220); }
+  let daisyTimer; function startDaisies() {
+    const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    const initial = isLowEnd ? 10 : 18;
+    const intervalMs = isLowEnd ? 480 : 320;
+    for (let i = 0; i < initial; i++) createDaisy();
+    daisyTimer = setInterval(createDaisy, intervalMs);
+  }
 })();
