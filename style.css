@@ -1,122 +1,102 @@
-* { box-sizing: border-box; }
-:root {
-  --pink-100: #ffe7ef;
-  --pink-200: #ffd1e1;
-  --pink-300: #ffb8d1;
-  --pink-500: #ff8fb3;
-  --mint-300: #bff6e4;
-  --mint-500: #7be3c6;
-  --text: #5b4b56;
-  --shadow: 0 10px 25px rgba(255, 143, 179, 0.25);
-}
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text); background: linear-gradient(160deg, var(--pink-100), var(--pink-200)); overflow-x: hidden; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For El 💖</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hearts-bg" aria-hidden="true"></div>
 
-/* Toast */
-#toast { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 999; display: grid; gap: 10px; }
-.toast-item { background: #fff; color: #7a3759; border: 2px solid #ffd3e5; box-shadow: 0 12px 24px rgba(0,0,0,0.12); border-radius: 14px; padding: 10px 14px; font-weight: 800; animation: toastIn 250ms ease-out both, toastOut 300ms ease-in 2800ms forwards; }
-@keyframes toastIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
-@keyframes toastOut { to { opacity: 0; transform: translate(-50%, -8px); } }
+  <!-- Toast for playful error popups -->
+  <div id="toast" aria-live="polite" aria-atomic="true"></div>
 
-/* Hearts visible on pages 1-3 only */
-.hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  <!-- PAGE 1: Landing -->
+  <section id="page-1" class="page page-active" aria-labelledby="landing-title">
+    <div class="container landing-card" id="landingCard">
+      <h1 id="landing-title" class="title fancy">Hi, El 💖</h1>
+      <!-- Editable text -->
+      <p class="subtitle">Here's a cheesy confession made for you hehe :></p>
+      <div class="cta">
+        <button id="beginBtn" class="btn primary">G?</button>
+      </div>
+    </div>
+  </section>
 
-/* SVG hearts */
-.heart { position: absolute; top: -5vh; filter: drop-shadow(0 4px 8px rgba(255, 143, 179, 0.28)); opacity: 0.95; will-change: transform; transform: translate3d(0,0,0); }
-.heart svg { display: block; width: 100%; height: 100%; transform: translateZ(0); }
-@keyframes rainDown { 0% { transform: translate3d(0,-10vh,0) scale(0.92); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate3d(0,120vh,0) scale(1.03); opacity: 0; } }
+  <!-- PAGE 2: Verification -->
+  <section id="page-2" class="page" aria-labelledby="verify-title">
+    <div class="container card" id="verifyCard">
+      <!-- Editable text -->
+      <h2 id="verify-title" class="title">Making sure that it's my babyy!</h2>
+      <form id="verifyForm" class="form" autocomplete="off" novalidate>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input id="age" name="age" type="number" inputmode="numeric" min="0" placeholder="60" required />
+        </div>
+        <div class="form-group">
+          <label for="pin">Birthday PIN (MMDD)</label>
+          <input id="pin" name="pin" type="password" inputmode="numeric" maxlength="4" placeholder="1111" required />
+        </div>
+        <p id="verifyMsg" class="msg hidden" role="alert"></p>
+        <button type="submit" class="btn primary">Continue ➜</button>
+      </form>
+    </div>
+  </section>
 
-.page { position: relative; z-index: 1; min-height: 100vh; display: none; align-items: center; justify-content: center; padding: 48px 20px; transition: opacity 450ms ease, transform 450ms ease; opacity: 0; }
-.page-active { display: flex; opacity: 1; transform: translateY(0); }
-.page-enter { display: flex; opacity: 0; transform: translateY(10px); }
-.page-enter.page-active { opacity: 1; transform: translateY(0); }
+  <!-- PAGE 3: Envelope Animation + Music -->
+  <section id="page-3" class="page" aria-labelledby="envelope-title">
+    <div class="container">
+      <h2 id="envelope-title" class="title">A letter for you ✉️</h2>
 
-.container { width: 100%; max-width: 860px; text-align: center; }
-.title { font-family: 'Baloo 2', cursive; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 14px; }
-.subtitle { margin: 0 0 28px; opacity: 0.9; font-weight: 700; }
-.fancy { font-size: 46px; background: linear-gradient(90deg, #ff7fb0, #7be3c6); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 8px 24px rgba(255, 143, 179, 0.35); }
-.sparkle { position: relative; }
-.sparkle::after { content: '✨'; margin-left: 6px; animation: twinkle 1.5s ease-in-out infinite; }
-@keyframes twinkle { 0%,100%{opacity:.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.2)} }
+      <button class="btn ghost tip" id="tipOpen">Tap the envelope to open 💝</button>
 
-.card { background: #fff; border-radius: 20px; box-shadow: var(--shadow); padding: 28px; }
+      <div class="envelope" id="envelope" aria-label="Envelope" tabindex="0">
+        <div class="envelope-top"></div>
+        <div class="envelope-front"></div>
+        <div class="letter">
+          <!-- Editable text -->
+          <div class="scroll-hint" aria-hidden="true">Scroll to read ⬇️</div>
+          <h3>Dear El,</h3>
+          <div class="letter-body" tabindex="0" aria-label="Love letter content">
+            <p>I don’t want to say things I don’t mean or hide behind sugarcoated words just to make you smile. So here’s a very real confession of the things I truly want you to know.</p>
+            <p>I like you—very much. It all feels so fast sometimes, and I can’t quite process how we ended up here. But one thing is clear and sure: I <i>want</i> you in my life. I <i>need</i> you in my life.</p>
+            <p>I find peace in your hugs; they heal the chaos of my everyday life. I find comfort in your words. And I find joy, love, and assurance in your kisses. I love how you make other people happy, but I love you even more when you make me happy. In everything you do, I adore you.</p>
+            <p>I look up to you and admire how you’ve endured everything you’ve been through. Something in me wants you to have and experience all the beautiful things life can offer. I want you to receive everything you truly deserve—and I want to contribute to that. I want to be a source of your happiness and comfort.</p>
+            <p>El, I want you to know what it feels like to be loved—not just desired. It aches me to know that you’ve been used or treated unfairly before. Tangina, I hate everyone who hurt you. I want to give you all the best things I can offer. I want to travel with you, or simply be part of your plans. I want you to know someone is here for you—especially on your cloudy days. You can rant to me anytime (sparring tayo kung gusto mo bumugbog, haha). I just want to help and love you in any way I can.</p>
+            <p>I also want us to take things slow. I don’t want to pressure you; I want you to think this through and feel sure about your decision. I believe I’ve given you enough time to really think about it so you won’t regret it later.</p>
+            <p class="ask">So if you’ll let me…<br/>Will you please be my girlfriend?</p>
+            <div id="readEnd" class="read-end" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
 
-.btn { appearance: none; border: 0; border-radius: 999px; padding: 14px 24px; font-weight: 800; font-size: 16px; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease; box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
-.btn:active { transform: translateY(1px) scale(0.98); }
-.btn.primary { background: var(--mint-500); color: #124b3e; }
-.btn.primary:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 12px 24px rgba(123, 227, 198, 0.35); }
-.btn.success { background: #ff9ac2; color: #6a334d; }
-.btn.success:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 12px 24px rgba(255, 154, 194, 0.35); }
-.btn.ghost { background: #fff; color: var(--text); border: 2px solid #ffd3e5; }
-.btn.ghost:hover { background: #fff6fb; }
-.tip { margin-bottom: 10px; }
+      <p id="finalMsg" class="final-msg hidden" role="status"></p>
+      <div class="choices" id="choicesBelow">
+        <button id="yesBtn" class="btn success" type="button">G!</button>
+        <button id="noBtn" class="btn ghost" type="button">Nah.</button>
+      </div>
+    </div>
 
-/* Landing */
-.landing-card { position: relative; background: rgba(255,255,255,0.6); backdrop-filter: blur(6px); border-radius: 24px; padding: 28px; box-shadow: 0 20px 40px rgba(255, 143, 179, 0.25); z-index: 2; }
-#page-1 .title { font-size: 48px; }
-#page-1 .btn { font-size: 18px; }
-#beginBtn { animation: gentleBounce 1.8s ease-in-out infinite; }
-@keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    <!-- Place your audio file at assets/song.mp3 -->
+    <audio id="bgMusic" src="assets/song.mp3" preload="auto" loop playsinline hidden></audio>
+  </section>
 
-/* Verification */
-.form { display: grid; gap: 16px; margin-top: 8px; }
-.form-group { display: grid; gap: 8px; text-align: left; }
-label { font-weight: 800; }
-input[type="number"], input[type="password"] { padding: 14px 16px; border-radius: 14px; border: 2px solid #ffe1ee; background: #fff; box-shadow: inset 0 2px 6px rgba(0,0,0,0.04); outline: none; transition: border-color 180ms ease, box-shadow 180ms ease; }
-input:focus { border-color: #ffb4cf; box-shadow: 0 0 0 6px rgba(255, 180, 207, 0.2); }
-.msg { margin: 6px 0 0; min-height: 20px; font-weight: 800; }
-.msg.error { color: #c02c5a; }
-.msg.success { color: #1b7f64; }
-.hidden { display: none !important; }
+  <!-- PAGE 4: Daisies + Message -->
+  <section id="page-4" class="page" aria-labelledby="thanks-title">
+    <div class="daisies-bg" aria-hidden="true" id="daisiesBg"></div>
+    <div class="container thanks">
+      <h2 id="thanks-title" class="title">Thank you, baby!💖</h2>
+      <!-- Editable text -->
+      <p class="big-message">I’ll do my very best to make you happy, to be there for you always, and to take care of you in every way I can.<br/><br/> Love you lots! 🌼</p>
+    </div>
+  </section>
 
-/* Envelope */
-#page-3 .container { display: grid; gap: 14px; justify-items: center; }
-.envelope { position: relative; width: 440px; height: 320px; perspective: 900px; cursor: pointer; }
-.envelope-front { position: absolute; inset: 0; background: linear-gradient(180deg, #fff, #ffeaf3); border-radius: 18px; box-shadow: var(--shadow); }
-.envelope-top { position: absolute; left: 0; right: 0; top: 0; height: 50%; background: linear-gradient(180deg, #ffd7e7, #ffc2da); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; border-top-left-radius: 18px; border-top-right-radius: 18px; box-shadow: 0 8px 14px rgba(0,0,0,0.08); transition: transform 700ms cubic-bezier(.2,.7,.2,1); z-index: 2; }
-/* Letter hidden by default, revealed smoothly when envelope opens, and remains outside until closed */
-.letter { position: absolute; left: 6%; right: 6%; top: 20%; background: #fff; border-radius: 14px; padding: 18px 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); transform: translateY(90%); opacity: 0; pointer-events: none; transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 500ms ease; text-align: left; z-index: 1; display: flex; flex-direction: column; max-height: 50vh; overflow: visible; }
-/* Remove white overlay/gradient inside the letter */
-.letter::after { content: none; }
-.letter h3 { margin: 4px 0 6px; font-family: 'Baloo 2', cursive; }
-.letter .ask { font-weight: 800; font-size: 18px; margin: 12px 0; }
-/* Remove scroll hint overlay */
-.scroll-hint { display: none; }
-.scroll-hint.hide { display: none; }
-.letter-body { overflow-y: auto; padding: 2px 4px 80px 2px; line-height: 1.8; font-size: 16px; hyphens: auto; flex: 1 1 auto; min-height: 0; text-align: justify; text-justify: inter-word; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
-.letter-body p { margin: 16px 0; }
-.letter-body p:first-child { margin-top: 4px; }
-.letter-body p:last-child { margin-bottom: 12px; }
-/* Choices: moved below the envelope; only visible at end of scroll */
-.choices { display: none; position: static; gap: 12px; align-items: center; justify-content: center; margin-top: 16px; padding: 8px 0; }
-.choices.visible { display: flex; }
-/* Ensure Yes button scales from center and stays readable */
-#yesBtn { position: relative; transform-origin: left center; white-space: nowrap; z-index: 4; }
-#noBtn { position: relative; z-index: 1; }
-.envelope.open .envelope-top { transform: rotateX(-160deg); }
-.envelope.open .letter { transform: translateY(-12%); opacity: 1; pointer-events: auto; }
-.final-msg { font-weight: 800; font-size: 18px; }
-
-/* Compact cards for landing and verification */
-#landingCard { max-width: 520px; padding: 22px; }
-#verifyCard { max-width: 420px; padding: 20px; }
-#verifyCard .form { gap: 12px; }
-#verifyCard .btn { margin-top: 2px; }
-#page-1 .subtitle { margin-bottom: 18px; }
-
-/* Daisies page */
-#page-4 { position: relative; overflow: hidden; }
-.daisies-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-.daisy { position: absolute; top: -10vh; font-size: 24px; animation: fall linear forwards; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08)); transform: translate3d(0,0,0); }
-@keyframes fall { to { transform: translate3d(0,120vh,0) rotate(360deg); opacity: 0.95; } }
-.thanks { position: relative; z-index: 1; text-align: center; backdrop-filter: blur(4px); background: rgba(255,255,255,0.4); border-radius: 20px; padding: 24px; box-shadow: 0 20px 40px rgba(123,227,198,0.25); }
-.big-message { font-weight: 800; font-size: 22px; line-height: 1.5; }
-
-/* Responsive */
-@media (max-width: 600px) {
-  #page-1 .title { font-size: 36px; }
-  .envelope { width: 340px; height: 250px; }
-  .letter { max-height: 76vh; top: 18%; }
-  .letter-body { font-size: 15px; }
-  .fancy { font-size: 38px; }
-}
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
