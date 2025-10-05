@@ -86,9 +86,9 @@ input:focus { border-color: #ffb4cf; box-shadow: 0 0 0 6px rgba(255, 180, 207, 0
 .letter-body p { margin: 16px 0; }
 .letter-body p:first-child { margin-top: 4px; }
 .letter-body p:last-child { margin-bottom: 12px; }
-/* Choices: absolutely positioned footer; hidden until near-bottom to avoid layout jump */
-.choices { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; gap: 12px; align-items: center; background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,1)); padding: 10px 12px 10px; z-index: 3; border-top: 1px solid #f0e7ed; border-radius: 12px; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 200ms ease, transform 200ms ease; }
-.letter.show-choices .choices { opacity: 1; transform: translateY(0); pointer-events: auto; }
+/* Choices: moved below the envelope; only visible at end of scroll */
+.choices { display: none; position: static; gap: 12px; align-items: center; justify-content: center; margin-top: 16px; padding: 8px 0; }
+.choices.visible { display: flex; }
 /* Ensure Yes button scales from center and stays readable */
 #yesBtn { position: relative; transform-origin: left center; white-space: nowrap; z-index: 4; }
 #noBtn { position: relative; z-index: 1; }
