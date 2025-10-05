@@ -82,11 +82,13 @@ input:focus { border-color: #ffb4cf; box-shadow: 0 0 0 6px rgba(255, 180, 207, 0
 .letter .ask { font-weight: 800; font-size: 18px; margin: 12px 0; }
 .scroll-hint { position: sticky; top: 0; text-align: center; font-weight: 800; font-size: 13px; opacity: 0.85; color: #7a3759; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0)); padding: 6px 0 2px; z-index: 2; transition: opacity 220ms ease, transform 220ms ease; }
 .scroll-hint.hide { opacity: 0; pointer-events: none; transform: translateY(-4px); }
-.letter-body { overflow-y: auto; padding: 2px 4px 12px 2px; line-height: 1.8; font-size: 16px; hyphens: auto; flex: 1 1 auto; min-height: 0; text-align: justify; text-justify: inter-word; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
+.letter-body { overflow-y: auto; padding: 2px 4px 80px 2px; line-height: 1.8; font-size: 16px; hyphens: auto; flex: 1 1 auto; min-height: 0; text-align: justify; text-justify: inter-word; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
 .letter-body p { margin: 16px 0; }
 .letter-body p:first-child { margin-top: 4px; }
 .letter-body p:last-child { margin-bottom: 12px; }
-.choices { position: sticky; bottom: 0; display: flex; gap: 12px; margin-top: 10px; min-height: 52px; align-items: center; background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,1)); padding: 12px 0 8px; z-index: 3; overflow: visible; border-top: 1px solid #f0e7ed; }
+/* Hide choices until the reader reaches the bottom; never cover text */
+.choices { display: none; position: sticky; bottom: 0; gap: 12px; margin-top: 10px; align-items: center; background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,1)); padding: 10px 0 8px; z-index: 3; border-top: 1px solid #f0e7ed; }
+.letter.at-bottom .choices { display: flex; }
 /* Ensure Yes button scales from center and stays readable */
 #yesBtn { position: relative; transform-origin: left center; white-space: nowrap; z-index: 4; }
 #noBtn { position: relative; z-index: 1; }
