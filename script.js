@@ -148,6 +148,7 @@
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
   const choicesBelow = document.getElementById('choicesBelow');
+  const readEnd = document.getElementById('readEnd');
   const finalMsg = document.getElementById('finalMsg');
   const letterEl = envelope.querySelector('.letter');
   const letterBody = envelope.querySelector('.letter-body');
@@ -206,6 +207,20 @@
       }
     };
     letterBody.addEventListener('scroll', onScroll);
+    // IntersectionObserver sentinel at end to avoid flicker
+    if (readEnd && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (!choicesBelow) return;
+        if (entry.isIntersecting) {
+          choicesBelow.classList.add('visible');
+        } else {
+          const distanceFromBottom = letterBody.scrollHeight - (letterBody.scrollTop + letterBody.clientHeight);
+          if (distanceFromBottom > 96) choicesBelow.classList.remove('visible');
+        }
+      }, { root: letterBody, threshold: [0] });
+      io.observe(readEnd);
+    }
     // Allow touch scrolling inside the letter body without toggling the envelope
     letterBody.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
     letterBody.addEventListener('touchmove', (e) => { e.stopPropagation(); }, { passive: true });
