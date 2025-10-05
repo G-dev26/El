@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For El 💖</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hearts-bg" aria-hidden="true"></div>
+
+  <!-- Toast for playful error popups -->
+  <div id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- PAGE 1: Landing -->
+  <section id="page-1" class="page page-active" aria-labelledby="landing-title">
+    <div class="container landing-card" id="landingCard">
+      <h1 id="landing-title" class="title fancy">Hi, El 💖</h1>
+      <!-- Editable text -->
+      <p class="subtitle">Here's a cheesy confession made for you hehe :></p>
+      <div class="cta">
+        <button id="beginBtn" class="btn primary">G?</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 2: Verification -->
+  <section id="page-2" class="page" aria-labelledby="verify-title">
+    <div class="container card" id="verifyCard">
+      <!-- Editable text -->
+      <h2 id="verify-title" class="title">Making sure that it's my babyy!</h2>
+      <form id="verifyForm" class="form" autocomplete="off" novalidate>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input id="age" name="age" type="number" inputmode="numeric" min="0" placeholder="60" required />
+        </div>
+        <div class="form-group">
+          <label for="pin">Birthday PIN (MMDD)</label>
+          <input id="pin" name="pin" type="password" inputmode="numeric" maxlength="4" placeholder="1111" required />
+        </div>
+        <p id="verifyMsg" class="msg hidden" role="alert"></p>
+        <button type="submit" class="btn primary">Continue ➜</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- PAGE 3: Envelope Animation + Music -->
+  <section id="page-3" class="page" aria-labelledby="envelope-title">
+    <div class="container">
+      <h2 id="envelope-title" class="title">A letter for you ✉️</h2>
+
+      <button class="btn ghost tip" id="tipOpen">Tap the envelope to open 💝</button>
+
+      <div class="envelope" id="envelope" aria-label="Envelope" tabindex="0">
+        <div class="envelope-top"></div>
+        <div class="envelope-front"></div>
+        <div class="letter">
+          <!-- Editable text -->
+          <div class="scroll-hint" aria-hidden="true">Scroll to read ⬇️</div>
+          <h3>Dear El,</h3>
+          <div class="letter-body" tabindex="0" aria-label="Love letter content">
+            <p>I don’t want to say things I don’t mean or hide behind sugarcoated words just to make you smile. So here’s a very real confession of the things I truly want you to know.</p>
+            <p>I like you—very much. It all feels so fast sometimes, and I can’t quite process how we ended up here. But one thing is clear and sure: I <i>want</i> you in my life. I <i>need</i> you in my life.</p>
+            <p>I find peace in your hugs; they heal the chaos of my everyday life. I find comfort in your words. And I find joy, love, and assurance in your kisses. I love how you make other people happy, but I love you even more when you make me happy. In everything you do, I adore you.</p>
+            <p>I look up to you and admire how you’ve endured everything you’ve been through. Something in me wants you to have and experience all the beautiful things life can offer. I want you to receive everything you truly deserve—and I want to contribute to that. I want to be a source of your happiness and comfort.</p>
+            <p>El, I want you to know what it feels like to be loved—not just desired. It aches me to know that you’ve been used or treated unfairly before. Tangina, I hate everyone who hurt you. I want to give you all the best things I can offer. I want to travel with you, or simply be part of your plans. I want you to know someone is here for you—especially on your cloudy days. You can rant to me anytime (sparring tayo kung gusto mo bumugbog, haha). I just want to help and love you in any way I can.</p>
+            <p>I also want us to take things slow. I don’t want to pressure you; I want you to think this through and feel sure about your decision. I believe I’ve given you enough time to really think about it so you won’t regret it later.</p>
+            <p class="ask">So if you’ll let me…<br/>Will you please be my girlfriend?</p>
+          </div>
+          <div class="choices">
+            <button id="yesBtn" class="btn success" type="button">G!</button>
+            <button id="noBtn" class="btn ghost" type="button">Nah.</button>
+          </div>
+        </div>
+      </div>
+
+      <p id="finalMsg" class="final-msg hidden" role="status"></p>
+    </div>
+
+    <!-- Place your audio file at assets/song.mp3 -->
+    <audio id="bgMusic" src="assets/song.mp3" preload="auto" loop playsinline hidden></audio>
+  </section>
+
+  <!-- PAGE 4: Daisies + Message -->
+  <section id="page-4" class="page" aria-labelledby="thanks-title">
+    <div class="daisies-bg" aria-hidden="true" id="daisiesBg"></div>
+    <div class="container thanks">
+      <h2 id="thanks-title" class="title">Thank you, baby!💖</h2>
+      <!-- Editable text -->
+      <p class="big-message">I’ll do my very best to make you happy, to be there for you always, and to take care of you in every way I can.<br/><br/> Love you lots! 🌼</p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
