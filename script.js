@@ -147,6 +147,7 @@
   const envelope = document.getElementById('envelope');
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
+  const choicesBelow = document.getElementById('choicesBelow');
   const finalMsg = document.getElementById('finalMsg');
   const letterEl = envelope.querySelector('.letter');
   const letterBody = envelope.querySelector('.letter-body');
@@ -199,8 +200,10 @@
       const distanceFromBottom = letterBody.scrollHeight - (letterBody.scrollTop + letterBody.clientHeight);
       const shouldShow = userHasScrolledLetter && distanceFromBottom <= showThreshold;
       const shouldHide = distanceFromBottom > hideThreshold;
-      if (shouldShow) { letterEl?.classList.add('show-choices'); }
-      else if (shouldHide) { letterEl?.classList.remove('show-choices'); }
+      if (choicesBelow) {
+        if (shouldShow) { choicesBelow.classList.add('visible'); }
+        else if (shouldHide) { choicesBelow.classList.remove('visible'); }
+      }
     };
     letterBody.addEventListener('scroll', onScroll);
     // Allow touch scrolling inside the letter body without toggling the envelope
