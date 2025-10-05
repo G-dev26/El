@@ -151,6 +151,7 @@
   const letterEl = envelope.querySelector('.letter');
   const letterBody = envelope.querySelector('.letter-body');
   const scrollHint = envelope.querySelector('.scroll-hint');
+  let userHasScrolledLetter = false;
 
   function toggleEnvelope(forceOpen) {
     if (typeof forceOpen === 'boolean') envelope.classList.toggle('open', forceOpen);
@@ -169,6 +170,7 @@
         letterBody.scrollTop = 0;
         scrollHint?.classList.remove('hide');
         letterEl?.classList.remove('at-bottom');
+        userHasScrolledLetter = false;
       }
     } else {
       bgMusic.pause();
@@ -185,9 +187,10 @@
     letterBody.addEventListener('click', (e) => e.stopPropagation());
     const onScroll = () => {
       if (!letterBody) return;
-      if (letterBody.scrollTop > 8) { scrollHint?.classList.add('hide'); }
-      const atBottom = Math.ceil(letterBody.scrollTop + letterBody.clientHeight) >= letterBody.scrollHeight;
-      if (atBottom) { letterEl?.classList.add('at-bottom'); } else { letterEl?.classList.remove('at-bottom'); }
+      if (letterBody.scrollTop > 8) { scrollHint?.classList.add('hide'); userHasScrolledLetter = true; }
+      const threshold = 16; // px tolerance for bottom detection
+      const atBottom = Math.ceil(letterBody.scrollTop + letterBody.clientHeight + threshold) >= letterBody.scrollHeight;
+      if (userHasScrolledLetter && atBottom) { letterEl?.classList.add('at-bottom'); } else { letterEl?.classList.remove('at-bottom'); }
     };
     letterBody.addEventListener('scroll', onScroll);
     // Allow touch scrolling inside the letter body without toggling the envelope
