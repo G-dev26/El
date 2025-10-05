@@ -76,8 +76,8 @@ input:focus { border-color: #ffb4cf; box-shadow: 0 0 0 6px rgba(255, 180, 207, 0
 .envelope-top { position: absolute; left: 0; right: 0; top: 0; height: 50%; background: linear-gradient(180deg, #ffd7e7, #ffc2da); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; border-top-left-radius: 18px; border-top-right-radius: 18px; box-shadow: 0 8px 14px rgba(0,0,0,0.08); transition: transform 700ms cubic-bezier(.2,.7,.2,1); z-index: 2; }
 /* Letter hidden by default, revealed smoothly when envelope opens, and remains outside until closed */
 .letter { position: absolute; left: 6%; right: 6%; top: 20%; background: #fff; border-radius: 14px; padding: 18px 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); transform: translateY(90%); opacity: 0; pointer-events: none; transition: transform 700ms cubic-bezier(.2,.7,.2,1), opacity 500ms ease; text-align: left; z-index: 1; display: flex; flex-direction: column; max-height: 50vh; overflow: visible; }
-.letter::after { content: ''; position: absolute; left: 0; right: 0; bottom: 60px; height: 44px; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0.9) 60%, rgba(255,255,255,1)); opacity: 1; transition: opacity 220ms ease; }
-.letter.at-bottom::after { opacity: 0; }
+/* Remove white overlay/gradient inside the letter */
+.letter::after { content: none; }
 .letter h3 { margin: 4px 0 6px; font-family: 'Baloo 2', cursive; }
 .letter .ask { font-weight: 800; font-size: 18px; margin: 12px 0; }
 .scroll-hint { position: sticky; top: 0; text-align: center; font-weight: 800; font-size: 13px; opacity: 0.85; color: #7a3759; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0)); padding: 6px 0 2px; z-index: 2; transition: opacity 220ms ease, transform 220ms ease; }
