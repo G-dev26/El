@@ -153,6 +153,7 @@
   const scrollHint = envelope.querySelector('.scroll-hint');
   let userHasScrolledLetter = false;
 
+  let envelopeHasOpened = false;
   function toggleEnvelope(forceOpen) {
     if (typeof forceOpen === 'boolean') envelope.classList.toggle('open', forceOpen);
     else envelope.classList.toggle('open');
@@ -165,13 +166,17 @@
       // If metadata not loaded, try to load first (helps some browsers)
       if (bgMusic.readyState < 2) { try { bgMusic.load(); } catch(_) {} }
       bgMusic.play().catch(() => {});
-      // Reset scroll state when opening
+      // Reset scroll state only on first open to avoid jump when pressing buttons
       if (letterBody) {
-        letterBody.scrollTop = 0;
-        scrollHint?.classList.remove('hide');
-        letterEl?.classList.remove('at-bottom');
-        userHasScrolledLetter = false;
+        if (!envelopeHasOpened) {
+          letterBody.scrollTop = 0;
+          scrollHint?.classList.remove('hide');
+          letterEl?.classList.remove('at-bottom');
+          letterEl?.classList.remove('show-choices');
+          userHasScrolledLetter = false;
+        }
       }
+      envelopeHasOpened = true;
     } else {
       bgMusic.pause();
     }
@@ -188,9 +193,14 @@
     const onScroll = () => {
       if (!letterBody) return;
       if (letterBody.scrollTop > 8) { scrollHint?.classList.add('hide'); userHasScrolledLetter = true; }
-      const threshold = 16; // px tolerance for bottom detection
-      const atBottom = Math.ceil(letterBody.scrollTop + letterBody.clientHeight + threshold) >= letterBody.scrollHeight;
-      if (userHasScrolledLetter && atBottom) { letterEl?.classList.add('at-bottom'); } else { letterEl?.classList.remove('at-bottom'); }
+      // Hysteresis: show when within 48px of bottom after the user has scrolled; hide only if >96px away
+      const showThreshold = 48;
+      const hideThreshold = 96;
+      const distanceFromBottom = letterBody.scrollHeight - (letterBody.scrollTop + letterBody.clientHeight);
+      const shouldShow = userHasScrolledLetter && distanceFromBottom <= showThreshold;
+      const shouldHide = distanceFromBottom > hideThreshold;
+      if (shouldShow) { letterEl?.classList.add('show-choices'); }
+      else if (shouldHide) { letterEl?.classList.remove('show-choices'); }
     };
     letterBody.addEventListener('scroll', onScroll);
     // Allow touch scrolling inside the letter body without toggling the envelope
