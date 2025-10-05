@@ -80,8 +80,9 @@ input:focus { border-color: #ffb4cf; box-shadow: 0 0 0 6px rgba(255, 180, 207, 0
 .letter::after { content: none; }
 .letter h3 { margin: 4px 0 6px; font-family: 'Baloo 2', cursive; }
 .letter .ask { font-weight: 800; font-size: 18px; margin: 12px 0; }
-.scroll-hint { position: sticky; top: 0; text-align: center; font-weight: 800; font-size: 13px; opacity: 0.85; color: #7a3759; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0)); padding: 6px 0 2px; z-index: 2; transition: opacity 220ms ease, transform 220ms ease; }
-.scroll-hint.hide { opacity: 0; pointer-events: none; transform: translateY(-4px); }
+/* Remove scroll hint overlay */
+.scroll-hint { display: none; }
+.scroll-hint.hide { display: none; }
 .letter-body { overflow-y: auto; padding: 2px 4px 80px 2px; line-height: 1.8; font-size: 16px; hyphens: auto; flex: 1 1 auto; min-height: 0; text-align: justify; text-justify: inter-word; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
 .letter-body p { margin: 16px 0; }
 .letter-body p:first-child { margin-top: 4px; }
